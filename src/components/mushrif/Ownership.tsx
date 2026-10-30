@@ -7,8 +7,8 @@ import { PEOPLE } from "./data";
 
 export function Ownership() {
   const candidates = PEOPLE.filter((p) => p.role === "Admin" || p.role === "Member");
-  const [owner, setOwner] = useState(PEOPLE[0]);
-  const [target, setTarget] = useState(candidates[0].id);
+  const [owner, setOwner] = useState(PEOPLE[0]!);
+  const [target, setTarget] = useState(candidates[0]!.id);
   const [stage, setStage] = useState<"idle" | "confirm" | "done">("idle");
   const to = PEOPLE.find((p) => p.id === target)!;
 
@@ -42,7 +42,7 @@ export function Ownership() {
                 <label htmlFor="new-owner" className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">New owner</label>
                 <select id="new-owner" value={target} disabled={stage !== "idle"} onChange={(e) => setTarget(e.target.value)}
                   className="mt-3 w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none focus:border-primary disabled:opacity-60">
-                  {candidates.filter((c) => c.id !== owner.id).concat(owner.id !== PEOPLE[0].id ? [PEOPLE[0]] : []).map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                  {candidates.filter((c) => c.id !== owner.id).concat(owner.id !== PEOPLE[0]!.id ? [PEOPLE[0]!] : []).map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
               </div>
             </div>
