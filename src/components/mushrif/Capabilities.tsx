@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { Bell, Building2, Crown, KeyRound, MailCheck, Users } from "lucide-react";
+import { Bell, Building2, KeyRound, MailCheck, Users } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Eyebrow, Reveal } from "./Reveal";
 import { Avatar, RoleChip } from "./Console";
@@ -168,4 +168,4 @@ export function Capabilities() {
   );
 }
 
-export { Crown };
+
