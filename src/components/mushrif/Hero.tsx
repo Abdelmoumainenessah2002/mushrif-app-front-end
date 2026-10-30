@@ -23,7 +23,7 @@ export function Hero() {
         <motion.p {...fade(0)} className="mx-auto flex w-fit items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
           <span className="live-dot h-1.5 w-1.5 rounded-full bg-primary" /> Organization management, built with care
         </motion.p>
-        <motion.h1 {...fade(0.08)} className="font-display mx-auto mt-7 max-w-5xl text-center text-[2.75rem] font-medium leading-[0.95] sm:text-6xl md:text-7xl lg:text-[5.75rem]">
+        <motion.h1 {...fade(0.08)} className="font-display mx-auto mt-7 max-w-5xl text-center text-[2.5rem] font-medium leading-[0.95] sm:text-6xl md:text-7xl lg:text-[5.75rem]">
           Every team needs<br />
           <span className="text-shimmer italic">someone watching over it.</span>
         </motion.h1>
