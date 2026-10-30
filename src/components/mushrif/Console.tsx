@@ -29,7 +29,7 @@ export function Console() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let n = 3;
     const t = setInterval(() => {
-      const e = EVENTS[n % EVENTS.length];
+      const e = EVENTS[n % EVENTS.length]!;
       setFeed((f) => [{ ...e, key: n }, ...f].slice(0, 3));
       n++;
     }, 3200);

@@ -141,7 +141,7 @@ export function Capabilities() {
               const on = t.id === tab;
               return (
                 <button key={t.id} role="tab" aria-selected={on} aria-controls="cap-panel" onClick={() => setTab(t.id)}
-                  onKeyDown={(e) => { if (["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft"].includes(e.key)) { e.preventDefault(); const d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1; setTab(TABS[(i + d + TABS.length) % TABS.length].id); } }}
+                  onKeyDown={(e) => { if (["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft"].includes(e.key)) { e.preventDefault(); const d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1; setTab(TABS[(i + d + TABS.length) % TABS.length]!.id); } }}
                   className={`relative flex shrink-0 items-center gap-3 rounded-xl px-4 py-3.5 text-left transition-colors lg:py-4 ${on ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                   {on && <motion.span layoutId="cap-tab" className="absolute inset-0 rounded-xl border border-border bg-surface" transition={{ type: "spring", stiffness: 380, damping: 34 }} />}
                   <span className="relative font-mono text-[11px] text-primary">0{i + 1}</span>
