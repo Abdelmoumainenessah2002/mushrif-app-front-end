@@ -1,9 +1,9 @@
 import { Wordmark } from "./Logo";
 import { scrollTo } from "./data";
 
-const COLS = [
-  { h: "Product", l: <[string, string][]>[["Overview", "product"], ["Capabilities", "capabilities"], ["Permissions", "permissions"]] },
-  { h: "Learn", l: <[string, string][]>[["How it works", "how"], ["Early access", "access"]] },
+const COLS: { h: string; l: [string, string][] }[] = [
+  { h: "Product", l: [["Overview", "product"], ["Capabilities", "capabilities"], ["Permissions", "permissions"]] },
+  { h: "Learn", l: [["How it works", "how"], ["Early access", "access"]] },
 ];
 
 export function Footer() {
