@@ -1,5 +1,12 @@
 import "@testing-library/jest-dom/vitest";
 
+class TestResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+Object.defineProperty(window, "ResizeObserver", { value: TestResizeObserver, writable: true });
+
 Object.defineProperty(window, "scrollTo", {
   writable: true,
   value: () => {},
