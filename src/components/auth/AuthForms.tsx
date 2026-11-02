@@ -1,4 +1,4 @@
-import { useState, type InputHTMLAttributes } from "react";
+import { useState, type InputHTMLAttributes, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
@@ -11,10 +11,10 @@ import { useAuthAction } from "@/hooks/use-auth-action";
 import { AuthFeedback, AuthSuccess } from "./AuthFeedback";
 import { OAuthOptions } from "./OAuthOptions";
 
-function Field({ label, error, children, ...props }: InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string; children?: React.ReactNode }) {
+function Field({ label, error, children, ...props }: InputHTMLAttributes<HTMLInputElement> & { label: string; error?: string; children?: ReactNode }) {
   return <div><label htmlFor={props.id} className="mb-2.5 block text-sm font-medium">{label}</label><div className="relative"><Input {...props} className="h-12 bg-surface/50 pr-12" aria-invalid={Boolean(error)} aria-describedby={error ? `${props.id}-error` : undefined} />{children}</div>{error && <p id={`${props.id}-error`} role="alert" className="mt-2 text-xs text-rose">{error}</p>}</div>;
 }
-function SubmitButton({ pending, children }: { pending: boolean; children: React.ReactNode }) {
+function SubmitButton({ pending, children }: { pending: boolean; children: ReactNode }) {
   return <Button type="submit" disabled={pending} className="mt-6 h-12 w-full text-sm">{pending ? <LoaderCircle aria-hidden="true" className="motion-safe:animate-spin" /> : null}{pending ? "Please wait…" : children}{!pending && <ArrowRight />}</Button>;
 }
 export function LoginForm({ service = authService, onAuthenticated }: { service?: AuthService; onAuthenticated?: () => void }) {
