@@ -2,8 +2,21 @@ import { Wordmark } from "./Logo";
 import { scrollTo } from "./data";
 
 const COLS: { h: string; l: [string, string][] }[] = [
-  { h: "Product", l: [["Overview", "product"], ["Capabilities", "capabilities"], ["Permissions", "permissions"]] },
-  { h: "Learn", l: [["How it works", "how"], ["Early access", "access"]] },
+  {
+    h: "Product",
+    l: [
+      ["Overview", "product"],
+      ["Capabilities", "capabilities"],
+      ["Structure", "structure"],
+    ],
+  },
+  {
+    h: "Learn",
+    l: [
+      ["How it works", "how"],
+      ["Early access", "access"],
+    ],
+  },
 ];
 
 export function Footer() {
@@ -12,16 +25,24 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[2fr_1fr_1fr] md:px-8">
         <div>
           <Wordmark />
-          <p className="mt-4 max-w-xs text-sm text-muted-foreground">Organization and team management — members, roles, permissions, security and ownership.</p>
+          <p className="mt-4 max-w-xs text-sm text-muted-foreground">
+            Project and work management — workspaces, projects, epics, milestones and the teams
+            behind them.
+          </p>
         </div>
         {COLS.map((c) => (
           <div key={c.h}>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{c.h}</p>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              {c.h}
+            </p>
             <ul className="mt-4 space-y-2.5">
               {c.l.map(([label, id]) => (
-                <li key={id}><button onClick={() => scrollTo(id)} className="group relative text-sm">
-                  {label}<span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-                </button></li>
+                <li key={id}>
+                  <button onClick={() => scrollTo(id)} className="group relative text-sm">
+                    {label}
+                    <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
