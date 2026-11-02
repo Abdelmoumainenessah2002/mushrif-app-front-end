@@ -8,7 +8,7 @@ import {
   Paperclip,
   UserPlus,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ORG,
   STATUSES,
