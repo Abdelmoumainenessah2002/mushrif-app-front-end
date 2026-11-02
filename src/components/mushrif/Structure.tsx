@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { Building2, ChevronRight, Flag, Layers, MousePointerClick } from "lucide-react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Eyebrow, Reveal } from "./Reveal";
 import { Avatar } from "./Console";
 import {
@@ -37,7 +37,7 @@ function StatusBar({ items }: { items: WorkItem[] }) {
   );
 }
 
-function Row({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+function Row({ onClick, children }: { onClick: () => void; children: ReactNode }) {
   return (
     <button onClick={onClick} className="group flex w-full items-center gap-3 rounded-xl border border-border px-4 py-3.5 text-left transition-colors hover:border-primary/40 hover:bg-accent/40">
       {children}
