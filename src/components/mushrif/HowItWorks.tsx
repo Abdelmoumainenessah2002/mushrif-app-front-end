@@ -3,9 +3,9 @@ import { useRef } from "react";
 import { Eyebrow, Reveal } from "./Reveal";
 
 const STEPS = [
-  { n: "I", t: "Found", d: "Create your organization and become its owner. Your account is verified by email before anything else." },
-  { n: "II", t: "Gather", d: "Invite the people you work with. Each joins with a role that fits their responsibility." },
-  { n: "III", t: "Govern", d: "Adjust permissions, follow events through notifications, and transfer ownership when it's time." },
+  { n: "I", t: "Found", d: "Create your organization and carve it into workspaces — one per product, department or client." },
+  { n: "II", t: "Shape", d: "Open a project, give it a key, and frame the work with epics and milestones." },
+  { n: "III", t: "Deliver", d: "Break the work into tasks, stories and bugs, assign them, and watch them move to done." },
 ];
 
 export function HowItWorks() {
@@ -17,7 +17,7 @@ export function HowItWorks() {
   return (
     <section id="how" className="border-t border-border bg-surface/40 py-24 md:py-36">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <Reveal><Eyebrow index="04">How it works</Eyebrow></Reveal>
+        <Reveal><Eyebrow index="03">How it works</Eyebrow></Reveal>
         <Reveal delay={0.05}><h2 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1] md:text-6xl">Three verbs. One steady organization.</h2></Reveal>
         <div ref={ref} className="relative mt-16 md:ml-[8%]">
           <div className="absolute bottom-0 left-[15px] top-0 w-px bg-border md:left-[23px]"><motion.div className="w-full bg-primary" style={{ height: h }} /></div>

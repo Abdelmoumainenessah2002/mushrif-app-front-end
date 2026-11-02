@@ -7,7 +7,7 @@ import { scrollTo } from "./data";
 const LINKS = [
   { id: "product", label: "Product" },
   { id: "capabilities", label: "Capabilities" },
-  { id: "permissions", label: "Permissions" },
+  { id: "structure", label: "Structure" },
   { id: "how", label: "How it works" },
 ];
 

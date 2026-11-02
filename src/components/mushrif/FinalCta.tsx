@@ -23,8 +23,8 @@ export function FinalCta() {
         <motion.div initial={{ opacity: 0, scale: 0.8, rotate: -8 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 160, damping: 16 }} className="mx-auto w-fit">
           <LogoMark className="h-14 w-14" />
         </motion.div>
-        <h2 className="font-display mt-8 text-5xl font-medium leading-[0.95] md:text-7xl">Give your team<br /><span className="italic text-primary">a steady hand.</span></h2>
-        <p className="mx-auto mt-6 max-w-md text-muted-foreground">Mushrif is in active development. Leave your email to be among the first to try it.</p>
+        <h2 className="font-display mt-8 text-5xl font-medium leading-[0.95] md:text-7xl">Bring your work<br /><span className="italic text-primary">into focus.</span></h2>
+        <p className="mx-auto mt-6 max-w-md text-muted-foreground">Mushrif is in active development. Leave your email to be among the first to run your projects on it.</p>
         <AnimatePresence mode="wait">
           {state !== "noted" ? (
             <motion.form key="f" exit={{ opacity: 0, y: -8 }} onSubmit={submit} noValidate className="mx-auto mt-10 flex max-w-md flex-col gap-2 rounded-2xl border border-border bg-surface p-1.5 sm:flex-row sm:rounded-full">
