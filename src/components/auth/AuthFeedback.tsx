@@ -28,7 +28,7 @@ export function AuthSuccess({
   onContinue,
 }: {
   recovery?: boolean;
-  onContinue?: () => void;
+  onContinue?: (() => void) | undefined;
 }) {
   const reduced = useReducedMotion();
   return (

@@ -24,7 +24,7 @@ function Field({
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  error?: string;
+  error?: string | undefined;
   children?: ReactNode;
 }) {
   return (
