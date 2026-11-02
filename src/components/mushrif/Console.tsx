@@ -81,13 +81,15 @@ export function Console() {
   const [feed, setFeed] = useState<FeedEvent[]>(() =>
     EVENTS.slice(0, 3).map((e, i) => ({ ...e, key: i })),
   );
+  const feedKey = useRef(3);
+  const nextKey = () => feedKey.current++;
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let n = 3;
     const t = setInterval(() => {
       const e = EVENTS[n % EVENTS.length]!;
-      setFeed((f) => [{ ...e, key: n }, ...f].slice(0, 3));
+      setFeed((f) => [{ ...e, key: nextKey() }, ...f].slice(0, 3));
       n++;
     }, 3200);
     return () => clearInterval(t);
@@ -111,7 +113,7 @@ export function Console() {
           icon: CheckCircle2,
           text: `You moved ${item.key} to ${STATUS_LABEL[next]}`,
           tone: "text-primary",
-          key: Date.now(),
+          key: nextKey(),
         },
         ...f,
       ].slice(0, 3),
