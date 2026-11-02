@@ -14,7 +14,10 @@ export function useAuthAction() {
       setState(result);
       return result;
     } catch (error) {
-      const result: AuthResult = { status: "error", code: error instanceof TypeError ? "network" : "server" };
+      const result: AuthResult = {
+        status: "error",
+        code: error instanceof TypeError ? "network" : "server",
+      };
       setState(result);
       return result;
     } finally {

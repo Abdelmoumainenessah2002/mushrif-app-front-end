@@ -1,17 +1,45 @@
 import { z } from "zod";
 
-export const emailSchema = z.string().trim().min(1, "Enter your email address.").email("Enter a valid email address.");
+export const emailSchema = z
+  .string()
+  .trim()
+  .min(1, "Enter your email address.")
+  .email("Enter a valid email address.");
 const phonePattern = /^\+?[\d\s().-]+$/;
-export const identifierSchema = z.string().trim().min(1, "Enter your email or phone number.").refine(
-  (value) => emailSchema.safeParse(value).success || (phonePattern.test(value) && value.replace(/\D/g, "").length >= 7 && value.replace(/\D/g, "").length <= 15),
-  "Enter a valid email address or phone number.",
-);
-export const loginSchema = z.object({ identifier: identifierSchema, password: z.string().min(1, "Enter your password.") });
+export const identifierSchema = z
+  .string()
+  .trim()
+  .min(1, "Enter your email or phone number.")
+  .refine(
+    (value) =>
+      emailSchema.safeParse(value).success ||
+      (phonePattern.test(value) &&
+        value.replace(/\D/g, "").length >= 7 &&
+        value.replace(/\D/g, "").length <= 15),
+    "Enter a valid email address or phone number.",
+  );
+export const loginSchema = z.object({
+  identifier: identifierSchema,
+  password: z.string().min(1, "Enter your password."),
+});
 export const recoverySchema = z.object({ email: emailSchema });
 export type LoginInput = z.infer<typeof loginSchema> & { rememberMe: boolean };
 export type OAuthProvider = "google" | "github" | "facebook";
-export type AuthIssue = "unconfigured" | "invalid_credentials" | "invalid_session" | "rate_limited" | "network" | "server" | "validation";
-export type AuthResult = { status: "success" } | { status: "error"; code: AuthIssue; fieldErrors?: Partial<Record<"identifier" | "password" | "email", string>> };
+export type AuthIssue =
+  | "unconfigured"
+  | "invalid_credentials"
+  | "invalid_session"
+  | "rate_limited"
+  | "network"
+  | "server"
+  | "validation";
+export type AuthResult =
+  | { status: "success" }
+  | {
+      status: "error";
+      code: AuthIssue;
+      fieldErrors?: Partial<Record<"identifier" | "password" | "email", string>>;
+    };
 export interface AuthService {
   signIn(input: LoginInput): Promise<AuthResult>;
   requestRecovery(email: string): Promise<AuthResult>;
@@ -30,8 +58,10 @@ export const oauthProviders: { id: OAuthProvider; name: string; enabled: boolean
 ];
 export function authMessage(code: AuthIssue, operation: "login" | "recovery" | OAuthProvider) {
   if (code === "unconfigured") {
-    if (operation === "recovery") return "Password recovery is not connected yet. No email has been sent.";
-    if (operation === "login") return "Sign-in is not connected yet. No account has been signed in.";
+    if (operation === "recovery")
+      return "Password recovery is not connected yet. No email has been sent.";
+    if (operation === "login")
+      return "Sign-in is not connected yet. No account has been signed in.";
     return `${oauthProviders.find((provider) => provider.id === operation)?.name ?? operation} sign-in is not configured yet.`;
   }
   const messages: Record<Exclude<AuthIssue, "unconfigured">, string> = {
