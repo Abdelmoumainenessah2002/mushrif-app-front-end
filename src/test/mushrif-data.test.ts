@@ -43,8 +43,7 @@ describe("Mushrif demo data mirrors the backend models", () => {
   });
 
   it("every milestone has a due date, as the model requires", () => {
-    for (const p of allProjects)
-      for (const m of p.milestones) expect(m.due).toBeTruthy();
+    for (const p of allProjects) for (const m of p.milestones) expect(m.due).toBeTruthy();
   });
 
   it("project keys are uppercase, as the model enforces", () => {
@@ -55,8 +54,7 @@ describe("Mushrif demo data mirrors the backend models", () => {
     const personIds = new Set(PEOPLE.map((p) => p.id));
     for (const w of ORG.workspaces) {
       expect(w.projects.length).toBeGreaterThan(0);
-      for (const t of w.teams)
-        for (const id of t.memberIds) expect(personIds.has(id)).toBe(true);
+      for (const t of w.teams) for (const id of t.memberIds) expect(personIds.has(id)).toBe(true);
     }
   });
 });

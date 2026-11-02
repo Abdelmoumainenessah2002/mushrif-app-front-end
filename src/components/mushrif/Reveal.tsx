@@ -1,7 +1,17 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
-export function Reveal({ children, delay = 0, className, y = 24 }: { children: ReactNode; delay?: number; className?: string; y?: number }) {
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+  y = 24,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+  y?: number;
+}) {
   const reduce = useReducedMotion();
   return (
     <motion.div

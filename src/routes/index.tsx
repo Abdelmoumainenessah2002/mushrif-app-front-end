@@ -9,7 +9,8 @@ import { FinalCta } from "@/components/mushrif/FinalCta";
 import { Footer } from "@/components/mushrif/Footer";
 
 const title = "Mushrif — Project & work management";
-const description = "Organize projects, coordinate teams and track work across your organization — workspaces, projects, epics, milestones and every task in between.";
+const description =
+  "Organize projects, coordinate teams and track work across your organization — workspaces, projects, epics, milestones and every task in between.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
