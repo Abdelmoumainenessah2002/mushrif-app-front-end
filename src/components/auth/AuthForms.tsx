@@ -17,7 +17,7 @@ import { useAuthAction } from "@/hooks/use-auth-action";
 import { AuthFeedback, AuthSuccess } from "./AuthFeedback";
 import { OAuthOptions } from "./OAuthOptions";
 
-function Field({
+export function Field({
   label,
   error,
   children,
@@ -49,7 +49,7 @@ function Field({
     </div>
   );
 }
-function SubmitButton({ pending, children }: { pending: boolean; children: ReactNode }) {
+export function SubmitButton({ pending, children }: { pending: boolean; children: ReactNode }) {
   return (
     <Button type="submit" disabled={pending} className="mt-6 h-12 w-full text-sm">
       {pending ? <LoaderCircle aria-hidden="true" className="motion-safe:animate-spin" /> : null}
@@ -144,6 +144,12 @@ export function LoginForm({
         <SubmitButton pending={pending}>Sign In</SubmitButton>
       </form>
       <AuthFeedback state={action.state} operation={operation} />
+      <p className="mt-6 text-center text-sm text-muted-foreground">
+        New to Mushrif?{" "}
+        <Link to="/signup" className="text-primary hover:underline">
+          Create an account
+        </Link>
+      </p>
       <OAuthOptions
         disabled={pending}
         onSelect={(provider) => {
