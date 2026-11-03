@@ -71,7 +71,9 @@ describe("Sign-up validation", () => {
     expect(errorsFor({ ...valid, phoneCountry: "" }).phoneCountry).toBeDefined();
   });
   it("is explicitly unconfigured by default", async () => {
-    expect(await registrationService.register(toRegistrationPayload(signupSchema.parse(valid)))).toEqual({
+    expect(
+      await registrationService.register(toRegistrationPayload(signupSchema.parse(valid))),
+    ).toEqual({
       status: "error",
       code: "unconfigured",
     });

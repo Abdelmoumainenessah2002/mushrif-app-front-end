@@ -28,10 +28,7 @@ function Label({ htmlFor, children }: { htmlFor?: string; children: ReactNode })
 const controlClass =
   "h-12 rounded-md border border-input bg-surface/50 px-3 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-rose/60";
 
-export function SelectControl({
-  className,
-  ...props
-}: SelectHTMLAttributes<HTMLSelectElement>) {
+export function SelectControl({ className, ...props }: SelectHTMLAttributes<HTMLSelectElement>) {
   return <select {...props} className={cn(controlClass, className)} />;
 }
 
@@ -141,7 +138,9 @@ export function GenderField({
             key={g.value}
             className={cn(
               "flex h-12 cursor-pointer items-center gap-3 rounded-md border bg-surface/50 px-4 text-sm transition-colors has-[:focus-visible]:ring-1 has-[:focus-visible]:ring-ring",
-              value === g.value ? "border-primary/60 text-foreground" : "border-input text-muted-foreground hover:text-foreground",
+              value === g.value
+                ? "border-primary/60 text-foreground"
+                : "border-input text-muted-foreground hover:text-foreground",
             )}
           >
             <input type="radio" value={g.value} className="accent-[var(--primary)]" {...register} />
@@ -171,7 +170,10 @@ export function PasswordRequirements({ value }: { value: string }) {
             />
           ))}
         </div>
-        <span className="w-12 text-right font-mono text-[11px] text-muted-foreground" aria-live="polite">
+        <span
+          className="w-12 text-right font-mono text-[11px] text-muted-foreground"
+          aria-live="polite"
+        >
           {label ? `${label}` : ""}
         </span>
       </div>

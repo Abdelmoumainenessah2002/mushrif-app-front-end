@@ -71,9 +71,7 @@ function ErrorSummary({ count }: { count: number }) {
       className="mb-5 flex items-start gap-3 rounded-md border border-rose/30 bg-rose/5 p-4 text-sm"
     >
       <CircleAlert className="mt-0.5 size-4 shrink-0 text-rose" />
-      <p>
-        Please fix {count === 1 ? "1 field" : `${count} fields`} highlighted below.
-      </p>
+      <p>Please fix {count === 1 ? "1 field" : `${count} fields`} highlighted below.</p>
     </div>
   );
 }
@@ -150,11 +148,7 @@ export function SignupForm({ service = registrationService }: { service?: Regist
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         One shared place for your projects, teams and work.
       </p>
-      <form
-        noValidate
-        className="mt-9"
-        onSubmit={form.handleSubmit(submit, () => action.reset())}
-      >
+      <form noValidate className="mt-9" onSubmit={form.handleSubmit(submit, () => action.reset())}>
         {submitCount > 0 && !isSubmitSuccessful && <ErrorSummary count={errorCount} />}
         <fieldset disabled={pending} className="space-y-5">
           <div className="grid gap-5 sm:grid-cols-2">
@@ -302,13 +296,32 @@ export function ProfileCompletionForm({
       <form noValidate className="mt-9" onSubmit={form.handleSubmit(submit, () => action.reset())}>
         <fieldset disabled={pending} className="space-y-5">
           {has("firstName") && (
-            <Field id="firstName" label="First name" autoComplete="given-name" error={errors.firstName?.message} {...form.register("firstName")} />
+            <Field
+              id="firstName"
+              label="First name"
+              autoComplete="given-name"
+              error={errors.firstName?.message}
+              {...form.register("firstName")}
+            />
           )}
           {has("lastName") && (
-            <Field id="lastName" label="Last name" autoComplete="family-name" error={errors.lastName?.message} {...form.register("lastName")} />
+            <Field
+              id="lastName"
+              label="Last name"
+              autoComplete="family-name"
+              error={errors.lastName?.message}
+              {...form.register("lastName")}
+            />
           )}
           {has("email") && (
-            <Field id="email" label="Email address" type="email" autoComplete="email" error={errors.email?.message} {...form.register("email")} />
+            <Field
+              id="email"
+              label="Email address"
+              type="email"
+              autoComplete="email"
+              error={errors.email?.message}
+              {...form.register("email")}
+            />
           )}
           {has("phoneNumber") && (
             <PhoneField
@@ -321,16 +334,29 @@ export function ProfileCompletionForm({
             />
           )}
           {has("dateOfBirth") && (
-            <DateOfBirthField register={form.register("dateOfBirth")} max={localToday()} error={errors.dateOfBirth?.message} />
+            <DateOfBirthField
+              register={form.register("dateOfBirth")}
+              max={localToday()}
+              error={errors.dateOfBirth?.message}
+            />
           )}
           {has("gender") && (
-            <GenderField register={form.register("gender")} value={gender} error={errors.gender?.message} />
+            <GenderField
+              register={form.register("gender")}
+              value={gender}
+              error={errors.gender?.message}
+            />
           )}
         </fieldset>
         <SubmitButton pending={pending}>Finish creating account</SubmitButton>
       </form>
       <AuthFeedback state={action.state} operation="signup" />
-      <Button type="button" variant="link" className="mt-5 w-full text-muted-foreground" onClick={onCancel}>
+      <Button
+        type="button"
+        variant="link"
+        className="mt-5 w-full text-muted-foreground"
+        onClick={onCancel}
+      >
         Back to sign up
       </Button>
     </>
