@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import { CircleAlert, Eye, EyeOff } from "lucide-react";
@@ -262,7 +262,8 @@ export function ProfileCompletionForm({
     return z.object(shape);
   }, [missing]);
   const form = useForm<SignupFormValues>({
-    resolver: zodResolver(schema),
+    // The schema is built from the missing fields at runtime, so its static type is widened.
+    resolver: zodResolver(schema) as unknown as Resolver<SignupFormValues>,
     defaultValues: EMPTY,
     mode: "onTouched",
   });
