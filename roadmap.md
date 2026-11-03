@@ -4,3 +4,8 @@
 - [x] Add login and forgot-password pages preserving homepage design.
 - [x] Test state logic and browser interactions across desktop, tablet, and mobile.
 - [x] Provide precise local-development handoff; no publishing.
+## Sign up (/signup)
+- [x] Registration form with seven-field payload, validation, strength meter
+- [x] OAuth entry points + profile-completion step (unconfigured)
+- [x] Tests, browser checks, SIGNUP_HANDOFF.md
+- [ ] Connect real registration endpoint — blocked on backend contract

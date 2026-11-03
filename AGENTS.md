@@ -15,3 +15,4 @@
 - Authentication UI uses shared components and injectable browser-safe service contracts, defaulting to unconfigured results; keep future API integration separate from forms and never simulate production sessions.
 - All demo data lives in `src/components/mushrif/data.ts` and must stay consistent with the real backend Mongoose models (enums, item keys like `ATLAS-12`); `src/test/mushrif-data.test.ts` guards this.
 - Design tokens live only in `src/styles.css` (dark charcoal-green surfaces, saffron `--primary`, sage/sky/rose accents); components must use semantic tokens, never hardcoded colors.
+- Registration lives in `src/lib/signup-service.ts` (schema, payload builder, unconfigured `RegistrationService`); forms never build payloads themselves, so the backend endpoint can be wired in one place.

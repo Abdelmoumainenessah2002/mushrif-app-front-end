@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { motion, MotionConfig, useReducedMotion } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
 import { ArrowLeft, ArrowUpRight, Layers, Check } from "lucide-react";
 import type { ReactNode } from "react";
 import { Wordmark } from "@/components/mushrif/Logo";
@@ -12,7 +12,6 @@ export function AuthLayout({
   children: ReactNode;
   recovery?: boolean;
 }) {
-  const reduced = useReducedMotion();
   const project = ORG.workspaces[0]?.projects[0];
   return (
     <MotionConfig reducedMotion="user">
@@ -31,7 +30,7 @@ export function AuthLayout({
         </header>
         <main className="mx-auto grid max-w-[1440px] lg:min-h-[calc(100svh-104px)] lg:grid-cols-2">
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col justify-center px-6 pb-12 pt-10 sm:px-12 lg:pb-20 lg:pt-8"
@@ -44,7 +43,7 @@ export function AuthLayout({
           <aside className="relative hidden overflow-hidden border-l border-border bg-surface/40 px-12 py-14 lg:flex lg:flex-col lg:justify-center xl:px-16">
             <div className="grid-lines pointer-events-none absolute inset-0 opacity-50" />
             <motion.div
-              initial={reduced ? false : { opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.12 }}
               className="relative mx-auto w-full max-w-lg"

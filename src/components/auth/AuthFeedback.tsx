@@ -2,7 +2,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { CircleAlert, Check, ArrowRight, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { authMessage, type OAuthProvider } from "@/lib/auth-service";
+import { authMessage, type AuthOperation } from "@/lib/auth-service";
 import type { AuthActionState } from "@/hooks/use-auth-action";
 
 export function AuthFeedback({
@@ -10,7 +10,7 @@ export function AuthFeedback({
   operation,
 }: {
   state: AuthActionState;
-  operation: "login" | "recovery" | OAuthProvider;
+  operation: AuthOperation;
 }) {
   if (state.status !== "error") return null;
   return (
@@ -25,9 +25,11 @@ export function AuthFeedback({
 }
 export function AuthSuccess({
   recovery = false,
+  signup = false,
   onContinue,
 }: {
   recovery?: boolean;
+  signup?: boolean;
   onContinue?: (() => void) | undefined;
 }) {
   const reduced = useReducedMotion();
@@ -42,17 +44,19 @@ export function AuthSuccess({
         {recovery ? <Mail className="size-5" /> : <Check className="size-5" />}
       </div>
       <h1 className="font-display text-4xl font-medium tracking-normal">
-        {recovery ? "Check your inbox" : "You’re signed in"}
+        {recovery ? "Check your inbox" : signup ? "Account created" : "You’re signed in"}
       </h1>
       <p className="mt-4 leading-relaxed text-muted-foreground">
         {recovery
           ? "If an account matches that email, you’ll receive a link to reset your password. Check your spam folder, too."
-          : "Your sign-in was accepted. You can continue when your workspace is connected."}
+          : signup
+            ? "Your registration was accepted. Follow any next steps your account email describes, then sign in."
+            : "Your sign-in was accepted. You can continue when your workspace is connected."}
       </p>
-      {recovery ? (
+      {recovery || signup ? (
         <Button asChild className="mt-8 h-12 w-full">
           <Link to="/login">
-            Back to sign in
+            {signup ? "Go to sign in" : "Back to sign in"}
             <ArrowRight />
           </Link>
         </Button>
