@@ -99,7 +99,7 @@ export function DateOfBirthField({
   error,
 }: {
   register: UseFormRegisterReturn;
-  max: string;
+  max?: string | undefined;
   error?: string | undefined;
 }) {
   return (

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
@@ -110,7 +110,9 @@ export function SignupForm({ service = registrationService }: { service?: Regist
     "gender",
   ]);
   const errorCount = Object.keys(errors).length;
-  const today = useMemo(() => localToday(), []);
+  // Read the local date after hydration so server and browser markup match.
+  const [today, setToday] = useState<string>();
+  useEffect(() => setToday(localToday()), []);
 
   if (action.state.status === "success") return <AuthSuccess signup />;
   if (completion)
@@ -277,6 +279,8 @@ export function ProfileCompletionForm({
     "gender",
   ]);
   const has = (f: MissingField) => missing.includes(f);
+  const [today, setToday] = useState<string>();
+  useEffect(() => setToday(localToday()), []);
   if (action.state.status === "success") return <AuthSuccess signup />;
 
   async function submit(values: SignupFormValues) {
@@ -339,7 +343,7 @@ export function ProfileCompletionForm({
           {has("dateOfBirth") && (
             <DateOfBirthField
               register={form.register("dateOfBirth")}
-              max={localToday()}
+              max={today}
               error={errors.dateOfBirth?.message}
             />
           )}
