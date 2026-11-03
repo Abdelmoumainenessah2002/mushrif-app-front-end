@@ -130,14 +130,16 @@ export function SignupForm({ service = registrationService }: { service?: Regist
   }
   async function startOAuth(provider: OAuthProvider) {
     setOperation(provider);
-    let next: Awaited<ReturnType<RegistrationService["beginOAuthSignup"]>> | undefined;
-    await action.run(async () => {
-      next = await service.beginOAuthSignup(provider);
-      return next.status === "needs_profile" ? { status: "error", code: "validation" } : next;
+    let completion: { provider: OAuthProvider; missing: MissingField[] } | null = null;
+    await action.run(async (): Promise<AuthResult> => {
+      const next = await service.beginOAuthSignup(provider);
+      if (next.status !== "needs_profile") return next;
+      completion = { provider: next.provider, missing: next.missing };
+      return { status: "error", code: "validation" };
     });
-    if (next?.status === "needs_profile") {
+    if (completion) {
       action.reset();
-      setCompletion({ provider: next.provider, missing: next.missing });
+      setCompletion(completion);
     }
   }
 
@@ -255,8 +257,8 @@ export function ProfileCompletionForm({
     const shape: Record<string, z.ZodTypeAny> = {};
     for (const f of missing) {
       if (f === "phoneNumber") {
-        shape.phoneCountry = fieldSchemas.phoneCountry;
-        shape.phoneNational = fieldSchemas.phoneNational;
+        shape["phoneCountry"] = fieldSchemas.phoneCountry;
+        shape["phoneNational"] = fieldSchemas.phoneNational;
       } else shape[f] = fieldSchemas[f];
     }
     return z.object(shape);

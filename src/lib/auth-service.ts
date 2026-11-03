@@ -38,8 +38,20 @@ export type AuthResult =
   | {
       status: "error";
       code: AuthIssue;
-      /** Safe, user-facing messages keyed by form field name (e.g. identifier, email, phoneNumber). */
-      fieldErrors?: Partial<Record<string, string>>;
+      /** Safe, user-facing messages keyed by form field name . */
+      fieldErrors?: Partial<
+        Record<
+          | "identifier"
+          | "password"
+          | "email"
+          | "firstName"
+          | "lastName"
+          | "phoneNumber"
+          | "dateOfBirth"
+          | "gender",
+          string
+        >
+      >;
     };
 export interface AuthService {
   signIn(input: LoginInput): Promise<AuthResult>;
