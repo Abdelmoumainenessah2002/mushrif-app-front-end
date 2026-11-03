@@ -88,12 +88,19 @@ function isRealDate(value: string) {
   const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
   const date = new Date(Date.UTC(y, mo - 1, d));
   return (
-    y >= 1900 && date.getUTCFullYear() === y && date.getUTCMonth() === mo - 1 && date.getUTCDate() === d
+    y >= 1900 &&
+    date.getUTCFullYear() === y &&
+    date.getUTCMonth() === mo - 1 &&
+    date.getUTCDate() === d
   );
 }
 
 const name = (label: string) =>
-  z.string().trim().min(1, `Enter your ${label}.`).max(60, `Keep your ${label} under 60 characters.`);
+  z
+    .string()
+    .trim()
+    .min(1, `Enter your ${label}.`)
+    .max(60, `Keep your ${label} under 60 characters.`);
 
 export const fieldSchemas = {
   firstName: name("first name"),
@@ -114,12 +121,13 @@ export const fieldSchemas = {
     .min(1, "Enter your date of birth.")
     .refine(isRealDate, "Enter a valid date.")
     .refine((v) => !isRealDate(v) || v <= localToday(), "Date of birth can’t be in the future."),
-  gender: z
-    .string()
-    .refine((v) => GENDER_OPTIONS.some((g) => g.value === v), "Select an option."),
+  gender: z.string().refine((v) => GENDER_OPTIONS.some((g) => g.value === v), "Select an option."),
   password: z
     .string()
-    .refine((v) => PASSWORD_RULES.every((r) => r.test(v)), "Password doesn’t meet all requirements."),
+    .refine(
+      (v) => PASSWORD_RULES.every((r) => r.test(v)),
+      "Password doesn’t meet all requirements.",
+    ),
 };
 
 export const signupSchema = z
@@ -127,9 +135,17 @@ export const signupSchema = z
   .superRefine((v, ctx) => {
     const digits = (dialFor(v.phoneCountry) + v.phoneNational.replace(/\D/g, "")).length;
     if (v.phoneNational.trim() && (digits < 8 || digits > 15))
-      ctx.addIssue({ code: "custom", path: ["phoneNational"], message: "Enter a valid phone number." });
+      ctx.addIssue({
+        code: "custom",
+        path: ["phoneNational"],
+        message: "Enter a valid phone number.",
+      });
     if (v.confirmPassword && v.password !== v.confirmPassword)
-      ctx.addIssue({ code: "custom", path: ["confirmPassword"], message: "Passwords don’t match." });
+      ctx.addIssue({
+        code: "custom",
+        path: ["confirmPassword"],
+        message: "Passwords don’t match.",
+      });
   });
 export type SignupFormValues = z.input<typeof signupSchema>;
 export type SignupParsed = z.output<typeof signupSchema>;
