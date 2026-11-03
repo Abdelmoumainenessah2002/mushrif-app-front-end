@@ -137,7 +137,7 @@ export function GenderField({
           <label
             key={g.value}
             className={cn(
-              "flex h-12 cursor-pointer items-center gap-3 rounded-md border bg-surface/50 px-4 text-sm transition-colors has-[:focus-visible]:ring-1 has-[:focus-visible]:ring-ring",
+              "flex h-12 cursor-pointer items-center gap-2.5 rounded-md border bg-surface/50 px-3 text-sm transition-colors has-[:focus-visible]:ring-1 has-[:focus-visible]:ring-ring",
               value === g.value
                 ? "border-primary/60 text-foreground"
                 : "border-input text-muted-foreground hover:text-foreground",
