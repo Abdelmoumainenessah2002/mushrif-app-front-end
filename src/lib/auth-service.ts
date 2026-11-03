@@ -38,7 +38,8 @@ export type AuthResult =
   | {
       status: "error";
       code: AuthIssue;
-      fieldErrors?: Partial<Record<"identifier" | "password" | "email", string>>;
+      /** Safe, user-facing messages keyed by form field name (e.g. identifier, email, phoneNumber). */
+      fieldErrors?: Partial<Record<string, string>>;
     };
 export interface AuthService {
   signIn(input: LoginInput): Promise<AuthResult>;
@@ -56,12 +57,15 @@ export const oauthProviders: { id: OAuthProvider; name: string; enabled: boolean
   { id: "github", name: "GitHub", enabled: true },
   { id: "facebook", name: "Facebook", enabled: true },
 ];
-export function authMessage(code: AuthIssue, operation: "login" | "recovery" | OAuthProvider) {
+export type AuthOperation = "login" | "recovery" | "signup" | OAuthProvider;
+export function authMessage(code: AuthIssue, operation: AuthOperation) {
   if (code === "unconfigured") {
     if (operation === "recovery")
       return "Password recovery is not connected yet. No email has been sent.";
     if (operation === "login")
       return "Sign-in is not connected yet. No account has been signed in.";
+    if (operation === "signup")
+      return "Registration is not connected yet. No account has been created.";
     return `${oauthProviders.find((provider) => provider.id === operation)?.name ?? operation} sign-in is not configured yet.`;
   }
   const messages: Record<Exclude<AuthIssue, "unconfigured">, string> = {
