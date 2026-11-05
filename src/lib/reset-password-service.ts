@@ -20,19 +20,29 @@ export function readResetToken(search: string): ResetTokenState {
 
 export const resetPasswordSchema = z
   .object({
-    newPassword: z.string().min(1, "Enter your new password.").refine(
-      (value) => value === "" || PASSWORD_RULES.every((rule) => rule.test(value)),
-      "Password doesn’t meet all requirements.",
-    ),
+    newPassword: z
+      .string()
+      .min(1, "Enter your new password.")
+      .refine(
+        (value) => value === "" || PASSWORD_RULES.every((rule) => rule.test(value)),
+        "Password doesn’t meet all requirements.",
+      ),
     confirmPassword: z.string().min(1, "Confirm your new password."),
   })
   .superRefine((values, context) => {
     if (values.confirmPassword && values.confirmPassword !== values.newPassword)
-      context.addIssue({ code: "custom", path: ["confirmPassword"], message: "Passwords don’t match." });
+      context.addIssue({
+        code: "custom",
+        path: ["confirmPassword"],
+        message: "Passwords don’t match.",
+      });
   });
 export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 export type ResetPasswordPayload = { token: string; newPassword: string };
-export function toResetPasswordPayload(token: string, values: ResetPasswordValues): ResetPasswordPayload {
+export function toResetPasswordPayload(
+  token: string,
+  values: ResetPasswordValues,
+): ResetPasswordPayload {
   return { token, newPassword: values.newPassword };
 }
 export interface ResetPasswordService {

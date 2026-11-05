@@ -45,7 +45,7 @@ export type AuthResult =
         Record<
           | "identifier"
           | "password"
-           | "newPassword"
+          | "newPassword"
           | "email"
           | "firstName"
           | "lastName"

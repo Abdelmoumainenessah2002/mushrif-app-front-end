@@ -46,16 +46,22 @@ export function AuthSuccess({
         {recovery ? <Mail className="size-5" /> : <Check className="size-5" />}
       </div>
       <h1 className="font-display text-4xl font-medium tracking-normal">
-        {recovery ? "Check your inbox" : reset ? "Password reset" : signup ? "Account created" : "You’re signed in"}
+        {recovery
+          ? "Check your inbox"
+          : reset
+            ? "Password reset"
+            : signup
+              ? "Account created"
+              : "You’re signed in"}
       </h1>
       <p className="mt-4 leading-relaxed text-muted-foreground">
         {recovery
           ? "If an account matches that email, you’ll receive a link to reset your password. Check your spam folder, too."
           : reset
             ? "Your password has been changed. Sign in with your new password to continue."
-          : signup
-            ? "Your registration was accepted. Follow any next steps your account email describes, then sign in."
-            : "Your sign-in was accepted. You can continue when your workspace is connected."}
+            : signup
+              ? "Your registration was accepted. Follow any next steps your account email describes, then sign in."
+              : "Your sign-in was accepted. You can continue when your workspace is connected."}
       </p>
       {recovery || signup || reset ? (
         <Button asChild className="mt-8 h-12 w-full">

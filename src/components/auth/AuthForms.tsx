@@ -37,7 +37,11 @@ export function Field({
           {...props}
           className="h-12 bg-surface/50 pr-12"
           aria-invalid={Boolean(error)}
-          aria-describedby={[props["aria-describedby"], error ? `${props.id}-error` : undefined].filter(Boolean).join(" ") || undefined}
+          aria-describedby={
+            [props["aria-describedby"], error ? `${props.id}-error` : undefined]
+              .filter(Boolean)
+              .join(" ") || undefined
+          }
         />
         {children}
       </div>
