@@ -86,22 +86,20 @@ export function ResetPasswordForm({
 
   async function submit(values: ResetPasswordValues) {
     if (tokenState.status !== "present") return;
-    const result = await action.run(() =>
-      service.resetPassword(toResetPasswordPayload(tokenState.token, values)),
-    );
-    if (result?.status === "success") {
-      form.reset(EMPTY);
-      setVisible({ newPassword: false, confirmPassword: false });
-      setTokenState({ status: "missing" });
-      // Remove the consumed token from the address bar without changing the router's history key.
-      const url = new URL(window.location.href);
-      url.searchParams.delete("token");
-      window.history.replaceState(
-        window.history.state,
-        "",
-        `${url.pathname}${url.search}${url.hash}`,
-      );
-    } else if (result?.status === "error" && result.fieldErrors?.newPassword) {
+    const result = await action.run(async () => {
+      const response = await service.resetPassword(toResetPasswordPayload(tokenState.token, values));
+      if (response.status === "success") {
+        // Clear registered inputs before the success state unmounts the form.
+        form.reset(EMPTY);
+        setVisible({ newPassword: false, confirmPassword: false });
+        setTokenState({ status: "missing" });
+        const url = new URL(window.location.href);
+        url.searchParams.delete("token");
+        window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+      }
+      return response;
+    });
+    if (result?.status === "error" && result.fieldErrors?.newPassword) {
       form.setError(
         "newPassword",
         { message: result.fieldErrors.newPassword },
