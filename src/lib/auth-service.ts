@@ -29,6 +29,8 @@ export type AuthIssue =
   | "unconfigured"
   | "invalid_credentials"
   | "invalid_session"
+  | "invalid_token"
+  | "expired_token"
   | "rate_limited"
   | "network"
   | "server"
@@ -43,6 +45,7 @@ export type AuthResult =
         Record<
           | "identifier"
           | "password"
+           | "newPassword"
           | "email"
           | "firstName"
           | "lastName"
@@ -69,9 +72,11 @@ export const oauthProviders: { id: OAuthProvider; name: string; enabled: boolean
   { id: "github", name: "GitHub", enabled: true },
   { id: "facebook", name: "Facebook", enabled: true },
 ];
-export type AuthOperation = "login" | "recovery" | "signup" | OAuthProvider;
+export type AuthOperation = "login" | "recovery" | "signup" | "reset" | OAuthProvider;
 export function authMessage(code: AuthIssue, operation: AuthOperation) {
   if (code === "unconfigured") {
+    if (operation === "reset")
+      return "Password reset is not connected yet. Your password has not been changed.";
     if (operation === "recovery")
       return "Password recovery is not connected yet. No email has been sent.";
     if (operation === "login")
@@ -83,6 +88,8 @@ export function authMessage(code: AuthIssue, operation: AuthOperation) {
   const messages: Record<Exclude<AuthIssue, "unconfigured">, string> = {
     invalid_credentials: "We couldn’t sign you in with those details. Please try again.",
     invalid_session: "Your session is no longer valid. Please sign in again.",
+    invalid_token: "This reset link is invalid. Request a new link to continue.",
+    expired_token: "This reset link has expired. Request a new link to continue.",
     rate_limited: "Too many attempts. Please wait a moment before trying again.",
     network: "We couldn’t connect. Check your connection and try again.",
     server: "Something went wrong. Please try again in a moment.",

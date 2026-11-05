@@ -16,3 +16,4 @@
 - All demo data lives in `src/components/mushrif/data.ts` and must stay consistent with the real backend Mongoose models (enums, item keys like `ATLAS-12`); `src/test/mushrif-data.test.ts` guards this.
 - Design tokens live only in `src/styles.css` (dark charcoal-green surfaces, saffron `--primary`, sage/sky/rose accents); components must use semantic tokens, never hardcoded colors.
 - Registration lives in `src/lib/signup-service.ts` (schema, payload builder, unconfigured `RegistrationService`); forms never build payloads themselves, so the backend endpoint can be wired in one place.
+- Reset passwords use an isolated browser-only token reader and injectable adapter in `src/lib/reset-password-service.ts`; keep credentials out of rendering, telemetry and persistent storage, and build payloads centrally for future integration.
