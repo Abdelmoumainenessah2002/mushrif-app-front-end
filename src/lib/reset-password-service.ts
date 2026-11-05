@@ -13,7 +13,7 @@ export function readResetToken(search: string): ResetTokenState {
   if (tokens.length === 0 || (tokens.length === 1 && tokens[0] === ""))
     return { status: "missing" };
   const token = tokens[0];
-  if (tokens.length !== 1 || !token || /\s|[\u0000-\u001f\u007f]/u.test(token))
+  if (tokens.length !== 1 || !token || /\s/u.test(token) || [...token].some((character) => character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127))
     return { status: "malformed" };
   return { status: "present", token };
 }

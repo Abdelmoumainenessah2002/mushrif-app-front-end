@@ -122,7 +122,10 @@ export function ResetPasswordForm({
       <form
         noValidate
         className="mt-9"
-        onSubmit={form.handleSubmit(submit, () => action.reset())}
+        onSubmit={(event) => {
+          if (pending || action.state.status === "success") { event.preventDefault(); return; }
+          void form.handleSubmit(submit, () => action.reset())(event);
+        }}
         aria-busy={pending}
       >
         <fieldset disabled={pending} className="space-y-5">
