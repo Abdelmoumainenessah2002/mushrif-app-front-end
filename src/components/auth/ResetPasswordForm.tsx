@@ -87,7 +87,9 @@ export function ResetPasswordForm({
   async function submit(values: ResetPasswordValues) {
     if (tokenState.status !== "present") return;
     const result = await action.run(async () => {
-      const response = await service.resetPassword(toResetPasswordPayload(tokenState.token, values));
+      const response = await service.resetPassword(
+        toResetPasswordPayload(tokenState.token, values),
+      );
       if (response.status === "success") {
         // Clear registered inputs before the success state unmounts the form.
         form.reset(EMPTY);
@@ -95,7 +97,11 @@ export function ResetPasswordForm({
         setTokenState({ status: "missing" });
         const url = new URL(window.location.href);
         url.searchParams.delete("token");
-        window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+        window.history.replaceState(
+          window.history.state,
+          "",
+          `${url.pathname}${url.search}${url.hash}`,
+        );
       }
       return response;
     });
