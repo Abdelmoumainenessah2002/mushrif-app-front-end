@@ -10,6 +10,6 @@
 - [x] Tests, browser checks, SIGNUP_HANDOFF.md
 - [ ] Connect real registration endpoint — blocked on backend contract
 ## Reset password (/reset-password)
-- [ ] Add isolated token handling, reset service and shared-style form.
-- [ ] Test validation, pending/error/success states and responsive navigation.
-- [ ] Provide RESET_PASSWORD_HANDOFF.md; no backend or publishing changes.
+- [x] Add isolated token handling, reset service and shared-style form.
+- [x] Test validation, pending/error/success states and responsive navigation.
+- [x] Provide RESET_PASSWORD_HANDOFF.md; no backend or publishing changes.
