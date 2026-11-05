@@ -92,6 +92,8 @@ export function ResetPasswordForm({
       );
       if (response.status === "success") {
         // Clear registered inputs before the success state unmounts the form.
+        form.setValue("newPassword", "");
+        form.setValue("confirmPassword", "");
         form.reset(EMPTY);
         setVisible({ newPassword: false, confirmPassword: false });
         setTokenState({ status: "missing" });
